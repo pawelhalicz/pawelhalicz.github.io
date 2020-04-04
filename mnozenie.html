@@ -1,38 +1,13 @@
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>
-  function create(x, y) {
-    var temp = document.getElementsByTagName("template")[0];
-    var clon = temp.content.cloneNode(true).children[0];
-    clon.getElementsByClassName('x')[0].value = x;
-    clon.getElementsByClassName('y')[0].value = y;
-    clon.getElementsByClassName('z')[0].result = x * y;
-    clon.getElementsByClassName('z')[0].addEventListener('blur', (event) => {
-      if( event.target.value != event.target.result ){
-        event.target.style.background = '#ffbcbc';
-      } else {
-        event.target.style.background = '#95d895';
-      }
-    });
-    document.getElementById('list').appendChild(clon);
-  }
-
-  function rand(min, max) {
-    return Math.ceil(Math.random() * (max - min) + min)-1;
-  }
-
-  function generate(){
-    var min = parseInt(document.getElementById('min').value)
-    var max = parseInt(document.getElementById('max').value)
-    var count = parseInt(document.getElementById('count').value)
-
-    for(i=0; i<count; i++){
-      create(rand(min, max), rand(min, max))
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    function expected(x, y){
+      return x * y
     }
-  }
-</script>
-<link rel="stylesheet" href="liczby.css">
+  </script>
+  <script src="liczby.js"></script>
+  <link rel="stylesheet" href="liczby.css">
 </head>
 <body>
   <template>
