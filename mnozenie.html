@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   function create(x, y) {
     var temp = document.getElementsByTagName("template")[0];
@@ -32,25 +33,35 @@
   }
 </script>
 <style>
-  body, input {
-    font-size: 1.5rem;
+  body, input, button { font-size: 1.5rem; }
+  input, button { border: 1px solid grey; }
+  body { line-height: 3rem; }
+  .short { width: 4rem; }
+  .z { width: 7rem; }
+  @media screen and (max-width: 600px) {
+  .cfg-row {
+    display: block;
   }
+}
 </style>
 </head>
 <body>
   <template>
     <div class="row">
-      <input class="x" disabled></input> * <input class="y" disabled></input> = <input type="number" class="z"></input>
+      <input class="x short" disabled></input> * <input class="y short" disabled></input> = <input type="number" class="z"></input>
     </div>
   </template>
   <div>
-    Od: <input id="min" type="number" value="5">
-    do: <input id="max" type="number" value="10"/><br/><br/>
-    Ile zadań: <input id="count" type="number" value="25">
-    <button onclick="generate()">Generuj zadania</button>
-    <br/><br/>
+    <span class="cfg-row">
+      liczby od: <input class="short" id="min" type="number" value="5" min="1"/>
+      do: <input class="short" id="max" type="number" value="9" min="1"/>
+    </span>
+    <span class="cfg-row">
+      ile zadań: <input class="short" id="count" type="number" value="25" min="1"/>
+      <button onclick="generate()">Generuj</button>
+    </span>
   </div>
-
+  <br/>
   <div id="list"></div>
 <body>
 </html>
