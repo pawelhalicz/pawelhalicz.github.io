@@ -22,7 +22,7 @@ function create(left, right) {
             return
         }
         resultInput.style.background = (resultInput.value == expectedValue) ? GREEN : RED
-        resultInput.readonly = 'readonly'
+        resultInput.readOnly = 'readonly'
         btn.style.visibility = 'hidden'
         const nextRow = btn.parentElement.nextElementSibling
         if (nextRow) {
