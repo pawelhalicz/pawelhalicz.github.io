@@ -12,20 +12,21 @@
 <body>
   <template>
     <div class="row">
-      <input class="x short" disabled></input> + <input class="y short" disabled></input> = <input type="number" class="z"></input>
+      <input class="left short" disabled></input> + <input class="right short" disabled></input> = <input type="number" class="result"></input>
+      <button class="checkButton">Sprawdź</button>
     </div>
   </template>
   <div class="cfg">
     <span class="cfg-row">
-      liczby od: <input class="short" id="min" type="number" value="5" min="1"/>
+      Dodawanie liczb od: <input class="short" id="min" type="number" value="5" min="1"/>
       do: <input class="short" id="max" type="number" value="9" min="1"/>
     </span>
     <span class="cfg-row">
-      ile zadań: <input class="short" id="count" type="number" value="25" min="1"/>
+      Ilość zadań: <input class="short" id="count" type="number" value="25" min="1"/>
       <button onclick="generate()">Generuj</button>
     </span>
   </div>
   <br/>
   <div id="list"></div>
-<body>
+</body>
 </html>

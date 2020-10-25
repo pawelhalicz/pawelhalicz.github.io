@@ -1,35 +1,67 @@
-function create(x, y) {
-    var temp = document.getElementsByTagName("template")[0];
-    var clon = temp.content.cloneNode(true).children[0];
-    clon.getElementsByClassName('x')[0].value = x;
-    clon.getElementsByClassName('y')[0].value = y;
-    clon.getElementsByClassName('z')[0].result = expected(x, y);
-    clon.getElementsByClassName('z')[0].addEventListener('blur', (event) => {
-      if( event.target.value != event.target.result ){
-        event.target.style.background = '#ffbcbc';
-      } else {
-        event.target.style.background = '#95d895';
-      }
-    });
-    clon.getElementsByClassName('z')[0].addEventListener('keypress', function (e) {
+const RED = '#ffbcbc'
+const GREEN = '#95d895'
+
+const $ = function (selector, element) {
+    return (element || document).querySelector(selector)
+}
+
+function create(left, right) {
+    const template = $('body > template').content.cloneNode(true).children[0];
+
+    $('.left', template).value = left;
+    $('.right', template).value = right;
+
+    const resultInput = $('.result', template);
+    const btn = $('.checkButton', template)
+
+    const expectedValue = expected(left, right);
+
+    const check = () => {
+        if (resultInput.value.trim() == '') {
+            resultInput.focus()
+            return
+        }
+        resultInput.style.background = (resultInput.value == expectedValue) ? GREEN : RED
+        resultInput.readonly = 'readonly'
+        btn.style.visibility = 'hidden'
+        const nextRow = btn.parentElement.nextElementSibling
+        if (nextRow) {
+            $('.result', nextRow).focus()
+        }
+    };
+
+    btn.addEventListener('click', check);
+    resultInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
-          var nextRow = document.activeElement.parentElement.nextElementSibling
-          nextRow ? nextRow.getElementsByClassName('z')[0].focus() : event.target.blur()
+            check()
         }
     });
-    document.getElementById('list').appendChild(clon);
-  }
+    $('#list').appendChild(template);
+}
 
-  function rand(min, max) {
-    return Math.ceil(Math.random() * (max - min) + min)-1;
-  }
+function rand(min, max) {
+    return Math.ceil(Math.random() * (max - min) + min) - 1;
+}
 
-  function generate(){
-    var min = parseInt(document.getElementById('min').value)
-    var max = parseInt(document.getElementById('max').value)
-    var count = parseInt(document.getElementById('count').value)
+function generate() {
+    $('#list').innerHTML = null
 
-    for(i=0; i<count; i++){
-      create(rand(min, max), rand(min, max))
+    const min = parseInt(document.getElementById('min').value)
+    const max = parseInt(document.getElementById('max').value) + 1
+    const count = parseInt(document.getElementById('count').value)
+
+    const results = []
+    let attempt = 0
+    while (results.length < count && attempt < 1000) {
+        attempt++//highly unlikely but good to have a limit
+
+        const left = rand(min, max);
+        const right = rand(min, max);
+
+        const key = left + '_' + right
+        if (results.indexOf(key) === -1) {
+            results.push(key)
+            create(left, right)
+        }
     }
-  }
+}

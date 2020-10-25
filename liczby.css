@@ -2,7 +2,7 @@
   input, button { border: 1px solid grey; }
   body { line-height: 3rem; }
   .short { width: 4rem; }
-  .z { width: 7rem; }
+  .result { width: 7rem; }
   @media screen and (max-width: 600px) {
     .cfg-row {
       display: block;
